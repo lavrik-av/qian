@@ -1,0 +1,41 @@
+#app-post-container {
+	position: relative;
+}
+.mat-card {
+
+	margin-top: 12px;
+	border: 1px solid rgba(128,128,128,0.3);
+
+}
+#mat-btn-add {
+    position: fixed;
+    bottom: 24px;
+	right: 24px;
+}
+h1 {
+    margin-top: 16px !important;
+}
+h2.mat-headline {
+    line-height: 28px;
+}
+.mat-card-content {
+	font-style: italic;
+}
+.form {
+
+}
+.form {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+  }
+  
+  .full-width-ctrl {
+	padding: 24px 32px;
+	width: 100%;
+    box-sizing: border-box;	
+  }
+  .no-border {
+	  border: none;
+	  box-shadow: none;
+  }
