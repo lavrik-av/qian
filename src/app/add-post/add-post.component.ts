@@ -36,8 +36,8 @@ export class AddPostComponent implements OnInit {
 
 		let post = <Post>{};
 
-		post.id		= Math.floor(Math.random() * 100);
-		post.userId = Math.floor(Math.random() * 100);
+		post.id		= Math.floor(Math.random() * 1000);
+		post.userId = Math.floor(Math.random() * 1000);
 		post.title  = form.title;
 		post.body   = form.body;
 

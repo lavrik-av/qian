@@ -2,7 +2,7 @@
 
 	<h1 class="">Qian test application</h1>
 
-	<mat-card *ngFor="let post of posts" >
+	<mat-card *ngFor="let post of postsService.posts" >
 
 		<mat-card-header>
 			<mat-card-title (click)="showScenario( scenario.title )">
@@ -15,7 +15,8 @@
 		</mat-card-content>
 
 		<mat-card-actions align="end">
-			<button color="primary" mat-raised-button (click)="removePost(post.id)">Remove</button>			
+			<button color="primary" mat-raised-button (click)="editPost(post)">Edit</button>			
+			<button color="warn" mat-raised-button (click)="removePost(post.id)">Remove</button>			
 		</mat-card-actions>
 
 		<mat-card-footer>

@@ -1,0 +1,40 @@
+<div id="edit-post-container" class="edit-post-container">
+
+    <h1 class="">Edit post</h1>
+  
+    <form *ngIf="showForm" class="form" [formGroup]="editPostForm">
+  
+      <mat-form-field class="full-width-ctrl hidden">
+      
+        <input matInput placeholder="id" formControlName="id">
+      
+      </mat-form-field>
+
+      <mat-form-field class="full-width-ctrl hidden">
+      
+        <input matInput placeholder="userId" formControlName="userId">
+      
+      </mat-form-field>
+
+      <mat-form-field class="full-width-ctrl">
+      
+        <input matInput placeholder="Post Title" formControlName="title">
+      
+      </mat-form-field>
+  
+      <mat-form-field class="full-width-ctrl">
+      
+        <input matInput placeholder="Post Text" formControlName="body">
+      
+      </mat-form-field>
+  
+    </form>
+  
+    <mat-card *ngIf="showForm" class="no-border">
+      <mat-card-actions align="end">
+        <button mat-raised-button routerLink="/posts">Cancel</button>
+        <button color="primary" mat-raised-button (click)="updatePost( editPostForm.value )" [disabled]="editPostForm.invalid">Add</button>
+      </mat-card-actions>
+    </mat-card>		
+    
+  </div>

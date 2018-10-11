@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router }		from '@angular/router';
 
-import { Subscription }				from 'rxjs/Subscription';
+import { Subscription }		 from 'rxjs/Subscription';
+import { isNullOrUndefined } from "util";
 
 import { environment }	from "../../environments/environment";
 import { PostsService } from "../../core/services/posts.service";
@@ -15,49 +16,42 @@ import { Post }		    from "../../core/models/post";
 })
 export class PostsComponent implements OnInit {
 
-	posts		: Post[] = new Array();
 	showPosts	: boolean = false;
 
-	OnAddPost	: Subscription;
+	OnPostsReceived : Subscription;
+	OnAddPost	 	: Subscription;
 
-	constructor( public postsService: PostsService ) { }
+	constructor( public postsService: PostsService, private router: Router ) { }
 
 	ngOnInit() {
 
-		this.OnAddPost = this.OnAddPost = this.postsService.OnAddPost.subscribe( post => {
+		this.OnPostsReceived = this.postsService.OnPostsReceived.subscribe( postsReceived => {
 
-			( post ) ? this.posts.push( post ) : false;
-
-		});
-
-		this.postsService.getPosts().subscribe( posts => {
-
-			for (let index = 0; index < environment.postsAmount; index++) {
-
-				this.posts.push( posts[index] );
-				
-			}
-
-			this.showPosts = true;
+			this.showPosts = postsReceived;
 
 		});
 	}
 
 	addPost( post: Post ):void {
 
-		this.posts.push( post );
+		this.postsService.posts.push( post );
+
+	}
+
+	editPost( post: Post ):void {
+
+		this.postsService.postToEdit = post;
+		this.router.navigateByUrl( '/edit-post' );
 
 	}
 
 	removePost( postId: number ):void {
 
-		for (let index = 0; index < this.posts.length; index++) {
+		for (let index = 0; index < this.postsService.posts.length; index++) {
+			
+			if ( this.postsService.posts[index].id == postId ) {
 
-			const element = this.posts[index];		
-
-			if ( element.id == postId ) {
-
-				this.posts.splice( index, 1);
+				this.postsService.posts.splice( index, 1);
 				break;
 				
 			}
@@ -66,7 +60,7 @@ export class PostsComponent implements OnInit {
 
 	ngOnDestroy(){
 
-		( this.OnAddPost ) ? this.OnAddPost.unsubscribe() : false;
+		( this.OnPostsReceived ) ? this.OnPostsReceived.unsubscribe() : false;
 
 	}
 }

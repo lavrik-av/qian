@@ -10,10 +10,25 @@ import { Post }			from "../../core/models/post";
 @Injectable()
 export class PostsService {
 
-	OnAddPost: BehaviorSubject<Post> = new BehaviorSubject( null );
+	posts		: Post[] = new Array;
+	postToEdit	: Post;
+
+	OnAddPost		: BehaviorSubject<Post> = new BehaviorSubject( null );
+	OnPostsReceived	: BehaviorSubject<boolean> = new BehaviorSubject( false );
 
 	constructor( private httpClient: HttpClient ) {
 
+		this.httpClient.get<Post[]>( environment.postsUrl ).subscribe( posts => {
+
+			for (let index = 0; index < environment.postsAmount; index++) {
+
+				this.posts.push( posts[index] );
+				
+			}
+
+			this.OnPostsReceived.next( true );
+
+		});
 	}
 
 	getPosts():Observable<Post[]> {
@@ -24,7 +39,7 @@ export class PostsService {
 
 	addPost( post: Post ):void {
 
-		this.OnAddPost.next( post )
+		this.posts.unshift( post );
 
 	}
 }

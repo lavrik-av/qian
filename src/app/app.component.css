@@ -1,3 +1,9 @@
+.hidden {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: none !important;
+    visibility: hidden !important;
+}
 #app-post-container {
 	position: relative;
 }
@@ -10,7 +16,7 @@
 #mat-btn-add {
     position: fixed;
     bottom: 24px;
-	right: 24px;
+	right: 36px;
 }
 h1 {
     margin-top: 16px !important;
